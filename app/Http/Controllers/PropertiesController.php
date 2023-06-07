@@ -39,7 +39,7 @@ class PropertiesController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $properties = $this->repository->all();
+        $properties = $this->repository->with('category')->all();
 
         if (request()->wantsJson()) {
 
@@ -65,9 +65,9 @@ class PropertiesController extends Controller
 
         $response = [
             'message' => 'Property created.',
-            'data'    => $property->toArray(),
+            'data'    => $property->load('category')->toArray(),
         ];
-
+        
         if ($request->wantsJson()) {
 
             return response()->json($response);
@@ -83,7 +83,7 @@ class PropertiesController extends Controller
      */
     public function show($id)
     {
-        $property = $this->repository->find($id);
+        $property = $this->repository->with('category')->find($id);
 
         if (request()->wantsJson()) {
 
@@ -123,7 +123,7 @@ class PropertiesController extends Controller
 
         $response = [
             'message' => 'Property updated.',
-            'data'    => $property->toArray(),
+            'data'    => $property->load('category')->toArray(),
         ];
 
         if ($request->wantsJson()) {

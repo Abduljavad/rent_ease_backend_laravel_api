@@ -32,6 +32,7 @@ class PropertyCreateRequest extends FormRequest
             'is_available' => 'required|boolean',
             'thumbnail' => 'required',
             'images' => 'nullable',
+            'category_id' => 'required|exists:categories,id'
         ];
     }
 }

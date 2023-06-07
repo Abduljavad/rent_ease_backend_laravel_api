@@ -27,6 +27,7 @@ class PropertyUpdateRequest extends FormRequest
             'name' => 'required',
             'bhk' => 'integer|min:1',
             'location' => 'required',
+            'category_id' => 'required|exists:categories,id'
         ];
     }
 }

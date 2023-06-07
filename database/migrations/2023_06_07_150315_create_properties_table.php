@@ -1,5 +1,6 @@
 <?php
 
+use App\Entities\Category;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
@@ -23,6 +24,7 @@ return new class extends Migration
 			$table->boolean('is_available')->default(1)->nullable();
 			$table->string('thumbnail')->nullable();
 			$table->json('images')->nullable();
+			$table->unsignedBigInteger('category_id')->nullable();
             $table->timestamps();
 		});
 	}

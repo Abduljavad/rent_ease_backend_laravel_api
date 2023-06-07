@@ -66,7 +66,7 @@ class CategoriesController extends Controller
             'message' => 'Category created.',
             'data'    => $category->toArray(),
         ];
-
+        
         if ($request->wantsJson()) {
 
             return response()->json($response);
