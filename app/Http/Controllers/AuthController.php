@@ -26,8 +26,10 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => $request->password,
         ]);
+
+        $user->assignRole('tenant');
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -54,7 +56,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        $user = User::where('email', $request->email)->firstOrFail();
+        $user = User::where('email', $request->email)->with('roles:name')->firstOrFail();
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([

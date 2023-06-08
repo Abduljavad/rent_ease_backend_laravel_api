@@ -16,6 +16,7 @@ return new class extends Migration
 	{
 		Schema::create('properties', function(Blueprint $table) {
             $table->increments('id');
+			$table->unsignedBigInteger('user_id');
 			$table->string('name');
 			$table->integer('bhk')->nullable();
 			$table->text('location')->nullable();

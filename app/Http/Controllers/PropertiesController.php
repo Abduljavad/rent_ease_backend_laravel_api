@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Property;
 use App\Http\Requests\PropertyCreateRequest;
 use App\Http\Requests\PropertyUpdateRequest;
+use App\Models\User;
 use App\Repositories\PropertyRepository;
 use App\Repositories\PropertyRepositoryEloquent;
 use App\Validators\PropertyValidator;
@@ -29,6 +31,7 @@ class PropertiesController extends Controller
     public function __construct(PropertyRepositoryEloquent $repository)
     {
         $this->repository = $repository;
+        $this->middleware(['auth:sanctum'])->only('store', 'update', 'destroy');
     }
 
     /**
@@ -60,14 +63,17 @@ class PropertiesController extends Controller
      */
     public function store(PropertyCreateRequest $request)
     {
+        $user = User::findOrFail(auth()->user()->id);
 
-        $property = $this->repository->create($request->all());
+        $this->authorize('store', Property::class);
+
+        $property = $user->properties()->create($request->all());
 
         $response = [
             'message' => 'Property created.',
             'data'    => $property->load('category')->toArray(),
         ];
-        
+
         if ($request->wantsJson()) {
 
             return response()->json($response);
