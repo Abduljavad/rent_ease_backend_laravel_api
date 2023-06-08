@@ -26,7 +26,8 @@ class Property extends Model implements Transformable
 
     protected $casts = [
         'desc' => 'json',
-        'images' => 'json'
+        'images' => 'json',
+        'thumbnail' => 'json'
     ];
 
     public function category(): BelongsTo

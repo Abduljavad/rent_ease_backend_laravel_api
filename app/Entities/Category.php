@@ -22,4 +22,8 @@ class Category extends Model implements Transformable
      */
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'thumbnail' => 'json'
+    ];
+
 }

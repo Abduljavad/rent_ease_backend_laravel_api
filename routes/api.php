@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttachmentsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PropertiesController;
@@ -24,3 +25,4 @@ Route::middleware('auth:sanctum')->post('/change-password', [AuthController::cla
 
 Route::resource('categories', CategoriesController::class);
 Route::resource('properties', PropertiesController::class);
+Route::resource('attachments', AttachmentsController::class);
